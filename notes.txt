@@ -1,0 +1,1 @@
+docker run --privileged -d docker:stable-dind --storage-driver=overlay

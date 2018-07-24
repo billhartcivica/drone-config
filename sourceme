@@ -1,0 +1,8 @@
+export DRONE_IP="xx.xx.xx.xx"
+export DRONE_INTERNAL_IP="xx.xx.xx.xx"
+export DRONE_GITHUB_CLIENT=xxxxxxxxxxxxxxxxx
+export DRONE_GITHUB_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx0
+export DRONE_SECRET="xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+export DRONE_BITBUCKET_CLIENT=xxxxxxxxxxxxxxxxxxxxxxxxx
+export DRONE_BITBUCKET_SECRET=xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+

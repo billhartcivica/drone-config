@@ -1,0 +1,43 @@
+version: '2'
+
+services:
+  drone-server:
+    image: drone/drone:0.8.1
+    ports:
+      - 8000:8000
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/drone:/var/lib/drone/
+      - ./secrets/drone-secrets.yml:/etc/drone-secrets.yml
+    restart: always
+    environment:
+      - DRONE_ADMIN=bhartcivica
+      - DRONE_OPEN=true
+      - DRONE_HOST=http://${DRONE_IP}:8000
+      - DRONE_BITBUCKET=true
+      - DRONE_BITBUCKET_CLIENT=${DRONE_BITBUCKET_CLIENT}
+      - DRONE_BITBUCKET_SECRET=${DRONE_BITBUCKET_SECRET}
+      - DRONE_SECRET=hello
+      - DRONE_LETS_ENCRYPT=false
+      - DOCKER_REPO_USER=${DOCKER_REPO_USER}
+      - DOCKER_REPO_PASSWORD=${DOCKER_REPO_PASSWORD}
+      - DOCKER_REGISTRY=${DOCKER_REGISTRY}
+      - DRONE_GLOBAL_SECRETS-/etc/drone-secrets.yml
+
+  drone-agent:
+    image: drone/agent:0.8.1
+    command: agent
+    restart: always
+    depends_on:
+      - drone-server
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DRONE_SERVER=${DRONE_INTERNAL_IP}:9000
+      - DRONE_SECRET=hello
+      - DRONE_HOST=http://${DRONE_IP}:8000
+      - DOCKER_REPO_USER=${DOCKER_REPO_USER}
+      - DOCKER_REPO_PASSWORD=${DOCKER_REPO_PASSWORD}
+      - DOCKER_REGISTRY=${DOCKER_REGISTRY}
+
